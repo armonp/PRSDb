@@ -31,7 +31,6 @@ namespace PRSDbLibrary.Controllers {
             context.Entry(request).State = EntityState.Modified;
             context.SaveChanges();
             return true;
-
         }
 
         public bool DeleteRequest(int id) {
@@ -43,6 +42,23 @@ namespace PRSDbLibrary.Controllers {
             var recs = context.SaveChanges();
             if (recs != 1) throw new Exception("Delete failed");
             else Console.WriteLine("Delete successful");
+            return true;
+        }
+        
+        public bool MarkReviewed(int id) {
+            GetRequestById(id).Status = "REVIEW";
+            context.SaveChanges();
+            return true;
+        }
+        public bool MarkApproved(int id) {
+            GetRequestById(id).Status = "APPROVED";
+            context.SaveChanges();
+            return true;
+        }
+        public bool MarkRejected(int id) {
+            GetRequestById(id).Status = "REJECTED";
+            if (GetRequestById(id).RejectionReason.Length < 10) throw new Exception("Rejection Reason must be included with rejected requests");
+            context.SaveChanges();
             return true;
         }
     }

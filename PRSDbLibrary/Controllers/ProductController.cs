@@ -22,9 +22,9 @@ namespace PRSDbLibrary.Controllers {
             if (product == null) throw new Exception("Product cannot be null");
            context.Products.Add(product);
             try {
-                context.SaveChanges();
+           context.SaveChanges();
             } catch (DbUpdateException ex) {
-                throw new Exception("PartNbr must be unique", ex);
+            throw new Exception("PartNbr must be unique", ex);
             } catch (Exception ex) {
                 throw;
             }
@@ -43,7 +43,6 @@ namespace PRSDbLibrary.Controllers {
                 throw;
             }
             return true;
-
         }
 
         public bool DeleteProduct(int id) {

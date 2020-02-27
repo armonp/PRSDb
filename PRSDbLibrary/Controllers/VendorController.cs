@@ -47,6 +47,7 @@ Console.WriteLine($"Vendor {vendor.Name} added succesfully");
             } catch (Exception ex) {
                 throw;
             }
+            Console.WriteLine($"{vendor.Name} updated successfully");
             return true;
         }
         //DeleteVendor
