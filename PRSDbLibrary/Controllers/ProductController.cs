@@ -15,7 +15,7 @@ namespace PRSDbLibrary.Controllers {
         public Product GetProductById(int id) {
             if (id < 1) throw new Exception("Id must be greater than zero");
             var p = context.Products.Find(id);
-            if ( p == null) throw new Exception("User Not Found");
+            if ( p == null) throw new Exception("Product Not Found");
             return p;
         }
         public Product AddProduct(Product product) {
