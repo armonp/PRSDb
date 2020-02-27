@@ -57,6 +57,9 @@ namespace PRSDbLibrary.Controllers {
         }
         public bool MarkRejected(int id) {
             GetRequestById(id).Status = "REJECTED";
+            Console.Write("Enter Rejection Reason: ");
+            var reason = Console.ReadLine();
+            GetRequestById(id).RejectionReason = reason;
             if (GetRequestById(id).RejectionReason.Length < 10) throw new Exception("Rejection Reason must be included with rejected requests");
             context.SaveChanges();
             return true;
