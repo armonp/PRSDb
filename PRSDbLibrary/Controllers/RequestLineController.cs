@@ -26,9 +26,9 @@ namespace PRSDbLibrary.Controllers {
             return reqline;
         }
         public bool UpdateRequestLine(int id, RequestLine reqline) {
-            if (RequestLine == null) throw new Exception("RequestLine cannot be null");
-            if (id != RequestLine.Id) throw new Exception("Id must be same as RequestLine.Id");
-            context.Entry(RequestLine).State = EntityState.Modified;
+            if (reqline == null) throw new Exception("RequestLine cannot be null");
+            if (id != reqline.Id) throw new Exception("Id must be same as RequestLine.Id");
+            context.Entry(reqline).State = EntityState.Modified;
             context.SaveChanges();
             return true;
         }
