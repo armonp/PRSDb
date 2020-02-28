@@ -8,6 +8,10 @@ using PRSDbLibrary.Models;
 namespace PRSDbLibrary.Controllers {
     public class RequestController {
         private AppDbContext context = new AppDbContext();
+        public const string StatusEdit = "EDIT";
+        public const string StatusReview = "REVIEW";
+        public const string StatusApproved = "APPROVED";
+        public const string StatusRejected = "REJECTED";
 
         public IEnumerable<Request> GetAllRequests() {
             return context.Requests.ToList();
@@ -45,24 +49,32 @@ namespace PRSDbLibrary.Controllers {
             return true;
         }
         
-        public bool MarkReviewed(int id) {
-            GetRequestById(id).Status = "REVIEW";
-            context.SaveChanges();
-            return true;
+        //GetrequeststoreviewNotOwn
+        public IEnumerable<Request> GetRequestsToReviewNotOwn(int userId) {
+            return context.Requests.Where(x => x.UserId != userId && x.Status == StatusReview).ToList();
         }
-        public bool MarkApproved(int id) {
-            GetRequestById(id).Status = "APPROVED";
-            context.SaveChanges();
-            return true;
+
+        public bool MarkReviewed(int id, Request request) {
+            if (request.Total <= 50) {
+                request.Status = StatusApproved;
+            } else {
+                request.Status = StatusReview;
+            }
+            request.RejectionReason = null;
+            return UpdateRequest(id, request);
         }
-        public bool MarkRejected(int id) {
-            GetRequestById(id).Status = "REJECTED";
+        public bool MarkApproved(Request request) {
+            request.Status = StatusApproved;
+            request.RejectionReason = null;
+            return UpdateRequest(request.Id, request);
+        }
+        public bool MarkRejected(int id, Request request) {
+            request.Status = StatusRejected;
             Console.Write("Enter Rejection Reason: ");
             var reason = Console.ReadLine();
             GetRequestById(id).RejectionReason = reason;
             if (GetRequestById(id).RejectionReason.Length < 10) throw new Exception("Rejection Reason must be included with rejected requests");
-            context.SaveChanges();
-            return true;
+            return UpdateRequest(id, request);
         }
     }
 }

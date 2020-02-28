@@ -35,11 +35,8 @@ namespace PRSDbLibrary {
             });
             model.Entity<Product>(p => {
                 p.HasIndex(x => x.PartNbr).IsUnique();
-                p.Property(x => x.Price).HasColumnType("decimal(11,2)");
             });
-            model.Entity<Request>(r => {
-                r.Property(x => x.Total).HasColumnType("decimal(11,2)");
-            });
+
         }
     }
 }

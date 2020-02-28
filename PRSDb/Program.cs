@@ -52,12 +52,15 @@ namespace PRSDb {
             //ReqCtrl.UpdateRequest(1, request1);
             //ReqCtrl.MarkReviewed(1);
             //ReqCtrl.MarkApproved(1);
-            ReqCtrl.MarkRejected(1);
+            //ReqCtrl.MarkRejected(1, request1);
+            //ReqCtrl.MarkReviewed(1, request1);
 
-            foreach (var r in ReqCtrl.GetAllRequests()) {
-                Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
-            }
+            //foreach (var r in ReqCtrl.GetAllRequests()) {
+            //    Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
+            //}
             #endregion
+
+
             
         }
 
