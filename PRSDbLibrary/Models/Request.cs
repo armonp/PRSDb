@@ -19,8 +19,6 @@ namespace PRSDbLibrary.Models {
 
         public virtual List<RequestLine> RequestLines { get; set; }
 
-
-
         public Request() { }
     }
 }

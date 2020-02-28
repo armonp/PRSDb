@@ -56,12 +56,34 @@ namespace PRSDb {
             //ReqCtrl.MarkReviewed(1, request1);
 
             //foreach (var r in ReqCtrl.GetAllRequests()) {
-            //    Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
+            //   Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
             //}
             #endregion
 
-
+            #region RequestLine Tests
+            //var reqL= ReqLineCtrl.GetReqLineById(2);
+            //reqL.Qty = 4;
+            //ReqLineCtrl.UpdateRequestLine(2, reqL);
+            //var rL2 = ReqLineCtrl.AddRequestLine(reqL);
+            //ReqLineCtrl.UpdateTotal(reqL);
+            //ReqLineCtrl.DeleteRequestLine(2);
+            var reqL = new RequestLine { Qty = 2, ProductId = 2, RequestId = 1, Id = 0};
             
+            ReqLineCtrl.AddRequestLine(reqL);
+            foreach (var r in ReqCtrl.GetAllRequests()) {
+                Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
+            }
+            ReqLineCtrl.DeleteRequestLine(4);
+            foreach (var r in ReqCtrl.GetAllRequests()) {
+                Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
+            }
+            //ReqLineCtrl.GetAllReqLines();
+
+
+
+
+            #endregion
+
         }
 
     }

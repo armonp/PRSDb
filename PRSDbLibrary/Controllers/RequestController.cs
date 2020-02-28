@@ -76,5 +76,6 @@ namespace PRSDbLibrary.Controllers {
             if (GetRequestById(id).RejectionReason.Length < 10) throw new Exception("Rejection Reason must be included with rejected requests");
             return UpdateRequest(id, request);
         }
+
     }
 }
