@@ -29,8 +29,15 @@ namespace PRSDbLibrary.Controllers {
         public bool UpdateRequestLine(int id, RequestLine reqline) {
             if (reqline == null) throw new Exception("RequestLine cannot be null");
             if (id != reqline.Id) throw new Exception("Id must be same as RequestLine.Id");
-            UpdateTotal(reqline.RequestId);
             context.Entry(reqline).State = EntityState.Modified;
+            try {
+                context.SaveChanges();
+               UpdateTotal(reqline.Id);
+            } catch (DbUpdateException ex) {
+                throw new Exception(ex.Message, ex);
+            } catch (Exception) {
+                throw;
+            }
             context.SaveChanges();
             return true;
         }
@@ -40,17 +47,15 @@ namespace PRSDbLibrary.Controllers {
             return DeleteRequestLine(rl);
         }
         public bool DeleteRequestLine(RequestLine reqline) {
-            //var request = reqline.Request;
             context.RequestLines.Remove(reqline);
             UpdateTotal(reqline.RequestId);
-            var recs = context.SaveChanges();
-            if (recs != 1) throw new Exception("Delete failed");
-            else Console.WriteLine("Delete successful");
             return true;
         }
-        private void UpdateTotal(int requestId) {
-            var request = GetReqLineById(requestId).Request;
-            request.Total = request.RequestLines.Sum(x => x.Qty * x.Product.Price);
+        private void UpdateTotal(int requestid) {
+            var request = context.Requests.Find(requestid);
+            var total = context.RequestLines.Where(rl => rl.RequestId == requestid).Sum(x => x.Qty * x.Product.Price);
+            request.Total = total;
+            context.SaveChanges();
         }
     }
 }

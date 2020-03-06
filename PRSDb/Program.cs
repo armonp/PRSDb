@@ -1,4 +1,5 @@
-﻿using PRSDbLibrary.Controllers;
+﻿using PRSDbLibrary;
+using PRSDbLibrary.Controllers;
 using PRSDbLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -67,13 +68,13 @@ namespace PRSDb {
             //var rL2 = ReqLineCtrl.AddRequestLine(reqL);
             //ReqLineCtrl.UpdateTotal(reqL);
             //ReqLineCtrl.DeleteRequestLine(2);
-            var reqL = new RequestLine { Qty = 2, ProductId = 2, RequestId = 1, Id = 0};
+            var reqL = new RequestLine { Qty = 2, ProductId = 3, RequestId = 1, Id = 0};
             
-            ReqLineCtrl.AddRequestLine(reqL);
             foreach (var r in ReqCtrl.GetAllRequests()) {
                 Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
             }
-            ReqLineCtrl.DeleteRequestLine(4);
+            //ReqLineCtrl.AddRequestLine(reqL);
+            //ReqLineCtrl.DeleteRequestLine(4);
             foreach (var r in ReqCtrl.GetAllRequests()) {
                 Console.WriteLine($"{r.Description} / {r.Justification} / {r.Status} / {r.UserId} / {r.RejectionReason} / {r.Total}");
             }
